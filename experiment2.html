@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 1: Bernoulli's Theorem</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <script defer>
+        // Function to calculate the result based on Bernoulli's equation
+        function calculateResult() {
+            // Retrieve input values
+            const p1 = parseFloat(document.getElementById('p1').value);
+            const V1 = parseFloat(document.getElementById('V1').value);
+            const Z1 = parseFloat(document.getElementById('Z1').value);
+            const p2 = parseFloat(document.getElementById('p2').value);
+            const V2 = parseFloat(document.getElementById('V2').value);
+            const Z2 = parseFloat(document.getElementById('Z2').value);
+            const w = parseFloat(document.getElementById('w').value);
+
+            if (isNaN(p1) || isNaN(V1) || isNaN(Z1) || isNaN(p2) || isNaN(V2) || isNaN(Z2) || isNaN(w)) {
+                alert('Please fill all the fields with valid numbers.');
+                return;
+            }
+
+            // Calculate total head for both points
+            const head1 = (p1 / w) + (V1 * V1) / (2 * 9.81) + Z1;
+            const head2 = (p2 / w) + (V2 * V2) / (2 * 9.81) + Z2;
+
+            // Create a new row in the observation table
+            const table = document.getElementById('observationTable');
+            const newRow = table.insertRow(-1);
+
+            // Add cells to the new row
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+
+            // Populate the cells with data
+            cell1.textContent = head1.toFixed(2);
+            cell2.textContent = head2.toFixed(2);
+            cell3.textContent = (head1 - head2).toFixed(2);
+            cell4.textContent = head1.toFixed(2) === head2.toFixed(2) ? 'Verified' : 'Not Verified';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Fluid Mechanics Virtual Lab</h1>
+        <h2>Dr. B.R. Ambedkar National Institute of Technology Jalandhar</h2>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="experiment3.html">Next Experiment</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section>
+            <h2>Experiment 2: Verification of Bernoulli's Theorem</h2>
+            <article>
+                <h3>Aim</h3>
+                <p>To verify Bernoulli's Theorem using a suitable experimental setup.</p>
+            </article>
+            <article>
+                <h3>Apparatus Required</h3>
+                <ul>
+                    <li>Bernoulli's Apparatus</li>
+                    <li>Manometer</li>
+                    <li>Measuring tank</li>
+                    <li>Stopwatch</li>
+                </ul>
+            </article>
+            <article>
+                <h3>Diagram</h3>
+                <img src="experiment1_diagram.png" alt="Diagram for Bernoulli's Theorem Experiment" style="max-width: 100%;">
+            </article>
+            <article>
+                <h3>Theory</h3>
+                <p>Bernoulli's Theorem is a fundamental principle in fluid mechanics that describes the conservation of mechanical energy in a flowing fluid. It states that for an incompressible, non-viscous fluid in a steady flow, the total mechanical energy (sum of pressure energy, kinetic energy, and potential energy) remains constant along a streamline. Mathematically, it is expressed as:</p>
+                <p>
+                    (p1 / w) + (V1^2 / 2g) + Z1 = (p2 / w) + (V2^2 / 2g) + Z2
+                </p>
+                <p>Where:
+                <ul>
+                    <li><b>p</b> = Pressure energy per unit weight</li>
+                    <li><b>V</b> = Velocity of the fluid</li>
+                    <li><b>Z</b> = Potential energy (elevation head)</li>
+                    <li><b>w</b> = Specific weight of the fluid</li>
+                </ul>
+                </p>
+                <p>The theorem demonstrates the interconversion of energy forms within a flowing fluid, making it a cornerstone for analyzing fluid dynamics in engineering applications.</p>
+            </article>
+            <article>
+                <h3>Procedure</h3>
+                <ol>
+                    <li>Ensure the Bernoulli's apparatus is properly set up with no leaks or loose connections.</li>
+                    <li>Open the water supply to the apparatus and allow the flow to stabilize before taking measurements.</li>
+                    <li>Using the manometer, record the pressure head at two different points along the flow path.</li>
+                    <li>Measure the velocity of water at the same points using a flow meter or other velocity measurement tool.</li>
+                    <li>Record the elevation of these points relative to a fixed reference level.</li>
+                    <li>Calculate the total head (sum of pressure head, velocity head, and elevation head) at both points using Bernoulli's equation.</li>
+                    <li>Repeat the measurements for different flow rates to ensure accuracy and consistency.</li>
+                    <li>Compare the calculated total head values at the two points to verify Bernoulli's Theorem.</li>
+                </ol>
+            </article>
+            <article>
+                <h3>Inputs</h3>
+                <form id="inputForm">
+                    <label for="p1">Pressure at Point 1 (p1 in N/m<sup>2</sup>):</label>
+                    <input type="number" id="p1" step="any"><br>
+
+                    <label for="V1">Velocity at Point 1 (V1 in m/s):</label>
+                    <input type="number" id="V1" step="any"><br>
+
+                    <label for="Z1">Elevation at Point 1 (Z1 in m):</label>
+                    <input type="number" id="Z1" step="any"><br>
+
+                    <label for="p2">Pressure at Point 2 (p2 in N/m<sup>2</sup>):</label>
+                    <input type="number" id="p2" step="any"><br>
+
+                    <label for="V2">Velocity at Point 2 (V2 in m/s):</label>
+                    <input type="number" id="V2" step="any"><br>
+
+                    <label for="Z2">Elevation at Point 2 (Z2 in m):</label>
+                    <input type="number" id="Z2" step="any"><br>
+
+                    <label for="w">Specific Weight (w in N/m<sup>3</sup>):</label>
+                    <input type="number" id="w" step="any"><br>
+
+                    <button type="button" onclick="calculateResult()">Calculate</button>
+                </form>
+            </article>
+            <article>
+                <h3>Observations</h3>
+                <table border="1" id="observationTable">
+                    <thead>
+                        <tr>
+                            <th>Total Head at Point 1 (m)</th>
+                            <th>Total Head at Point 2 (m)</th>
+                            <th>Head Loss (m)</th>
+                            <th>Verification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be added dynamically here -->
+                    </tbody>
+                </table>
+            </article>
+            <article>
+                <h3>Results</h3>
+                <p>The verification of Bernoulli's Theorem is observed through the comparison of total head values at two points.</p>
+            </article>
+            <article>
+                <h3>Precautions</h3>
+                <ul>
+                    <li>Ensure there are no leaks in the apparatus.</li>
+                    <li>Record readings carefully and accurately.</li>
+                    <li>Allow water flow to stabilize before taking measurements.</li>
+                </ul>
+            </article>
+        </section>
+    </main>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #simulation-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px auto;
+            width: 90%;
+        }
+
+        #machine {
+            width: 50%;
+            position: relative;
+        }
+
+        #power-indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: red;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            border: 2px solid black;
+        }
+
+        #power-button {
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border: 1px solid black;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #water-flow {
+            position: absolute;
+            width: 10px;
+            height: 120px;
+            background: linear-gradient(to bottom, #00f 0%, #00f 50%, transparent 50%, transparent 100%);
+            background-size: 100% 200%;
+            background-position: 0 100%;
+            transition: background-position 2s ease-out;
+            top: 80px;
+            left: 80px;
+            display: none;
+        }
+
+        #timer-section {
+            width: 45%;
+            text-align: center;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+
+        #timer-section input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 14px;
+            width: 50px;
+            text-align: center;
+        }
+
+        #timer-section button {
+            padding: 10px 20px;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        #observation-table {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bernoulli's Experiment Simulation</h1>
+
+    <div id="simulation-container">
+        <!-- Machine Section -->
+        <div id="machine">
+            <img src="image.png" alt="Bernoulli's Machine" style="width: 100%;">
+            <div id="power-indicator"></div>
+            <button id="power-button">Power On</button>
+            <div id="water-flow"></div>
+        </div>
+
+        <!-- Timer Section -->
+        <div id="timer-section">
+            <h2>Set Timer</h2>
+            <label for="height-input">Height Difference (H in m):</label>
+            <input type="number" id="height-input" min="0.1" step="0.1" value="1">
+            <br>
+            <label for="area1-input">Area 1 (A1 in cm²):</label>
+            <input type="number" id="area1-input" min="1" value="10">
+            <br>
+            <label for="area2-input">Area 2 (A2 in cm²):</label>
+            <input type="number" id="area2-input" min="1" value="5">
+            <br>
+            <label for="h1-input">Height 1 (h1 in cm):</label>
+            <input type="number" id="h1-input" min="1" value="0">
+            <br>
+            <label for="h2-input">Height 2 (h2 in cm):</label>
+            <input type="number" id="h2-input" min="1" value="10">
+            <br>
+            <label for="timer-input">Time (seconds):</label>
+            <input type="number" id="timer-input" min="1" max="60" value="10">
+            <br>
+            <button id="start-timer-button">Start Timer</button>
+            <div id="timer-display">00:10</div>
+        </div>
+    </div>
+
+    <!-- Observation Table -->
+    <div id="observation-table">
+        <h2>Observation Table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Time (s)</th>
+                    <th>Theoretical Discharge (Q)</th>
+                    <th>Actual Discharge (Q_actual)</th>
+                    <th>Coefficient of Discharge</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Dynamic rows will be added here -->
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+
+    <script>
+        const powerButton = document.getElementById('power-button');
+        const powerIndicator = document.getElementById('power-indicator');
+        const waterFlow = document.getElementById('water-flow');
+
+        powerButton.addEventListener('click', () => {
+            if (powerIndicator.style.backgroundColor === 'red') {
+                powerIndicator.style.backgroundColor = 'green'; // Turn on power
+                waterFlow.style.display = 'block'; // Show water flow
+                waterFlow.style.backgroundPosition = '0 0'; // Start water animation
+            } else {
+                powerIndicator.style.backgroundColor = 'red'; // Turn off power
+                waterFlow.style.backgroundPosition = '0 100%'; // Stop water animation
+                setTimeout(() => {
+                    waterFlow.style.display = 'none'; // Hide water flow
+                }, 2000);
+            }
+        });
+
+        const timerInput = document.getElementById('timer-input');
+        const startTimerButton = document.getElementById('start-timer-button');
+        const timerDisplay = document.getElementById('timer-display');
+        const tableBody = document.getElementById('table-body');
+
+        startTimerButton.addEventListener('click', () => {
+            let timeLeft = parseInt(timerInput.value);
+            if (isNaN(timeLeft) || timeLeft <= 0) {
+                alert('Please enter a valid time!');
+                return;
+            }
+
+            timerDisplay.textContent = `00:${timeLeft.toString().padStart(2, '0')}`;
+            const interval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = `00:${timeLeft.toString().padStart(2, '0')}`;
+
+                if (timeLeft === 0) {
+                    clearInterval(interval);
+                    calculateDischarge(parseFloat(timerInput.value));
+                }
+            }, 1000);
+        });
+
+        // Discharge Calculation
+        function calculateDischarge(time) {
+            const g = 9.81; // gravity in m/s²
+            const H = parseFloat(document.getElementById('height-input').value); // height difference
+            const A1 = parseFloat(document.getElementById('area1-input').value); // area 1
+            const A2 = parseFloat(document.getElementById('area2-input').value); // area 2
+            const h1 = parseFloat(document.getElementById('h1-input').value) / 100; // height 1 (converted to meters)
+            const h2 = parseFloat(document.getElementById('h2-input').value) / 100; // height 2 (converted to meters)
+
+            // Validate inputs
+            if (isNaN(H) || isNaN(A1) || isNaN(A2) || isNaN(h1) || isNaN(h2) || isNaN(time)) {
+                alert("Please enter valid inputs!");
+                return;
+            }
+
+            // Theoretical Discharge Formula
+            const Q_theoretical = (2 * g * H * (A1 * A2) / Math.sqrt(Math.pow(A1, 2) - Math.pow(A2, 2))).toFixed(2);
+
+            // Actual Discharge Formula
+            const Area_of_tank = 900; // cm²
+            const Q_actual = ((Area_of_tank * (h2 - h1)) / time).toFixed(2);
+
+            // Coefficient of Discharge
+            const coeffOfDischarge = (Q_actual / Q_theoretical).toFixed(2);
+
+            const row = `
+                <tr>
+                    <td>${time}</td>
+                    <td>${Q_theoretical}</td>
+                    <td>${Q_actual}</td>
+                    <td>${coeffOfDischarge}</td>
+                </tr>`;
+            tableBody.insertAdjacentHTML('beforeend', row);
+
+            alert('Discharge calculated and added to the table!');
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Dr. B.R. Ambedkar National Institute of Technology Jalandhar. All rights reserved.</p>
+        <p>
+            <span style="font-size: 13px;">Contributors: Nishita Gaikwad, Raghvendra Chauhan</span>
+        </p>
+
+    </footer>
+</body>
+</html>

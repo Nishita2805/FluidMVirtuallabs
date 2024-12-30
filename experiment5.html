@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow Over a Notch Experiment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f8fb;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #008000;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+
+        }
+
+        nav a {
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+            color: white;
+        }
+
+        nav a:hover {
+            background-color: #575757;
+        }
+
+        .container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .container h2 {
+            margin-top: 0;
+        }
+
+        footer {
+            background-color: #008000;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+        }
+
+        footer .footer-text {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            background-color: #008000;
+            border-radius: 4px;
+        }
+
+        footer a:hover {
+            background-color: #002040;
+        }
+
+        .results {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #e6f7ff;
+            border-radius: 8px;
+        }
+
+        canvas {
+            display: block;
+            margin: 30px auto;
+            max-width: 800px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f7f7f7;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fluid Mechanics Virtual Lab</h1>
+        <h2>Dr. B R Ambedkar National Institute of Technology Jalandhar</h2>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="experiment6.html">Next Experiment</a>
+    </nav>
+
+
+    <div class="container">
+        <h2>Experiment 5: Flow Over a Notch Experiment</h2>
+        <h2>Aim</h2>
+        <p>To study and determine the flow over a notch, including the discharge coefficient for V-notch and rectangular notch.</p>
+
+        <h2>Apparatus Required</h2>
+        <ul>
+            <li>Notch apparatus with V-notch and rectangular notch</li>
+            <li>Measuring tank</li>
+            <li>Stopwatch</li>
+            <li>Scale or gauge</li>
+        </ul>
+
+        <h2>Theory</h2>
+        <p>Flow over a notch is used to measure discharge in open channels. The theoretical discharge can be calculated using the following formulas:</p>
+        <p>For V-Notch:</p>
+        <p>Q<sub>v</sub> = (8/15) × √(2g) × tan(θ/2) × H<sup>2.5</sup></p>
+        <p>For Rectangular Notch:</p>
+        <p>Q<sub>r</sub> = (2/3) × √(2g) × B × H<sup>1.5</sup></p>
+        <p>Where Q is the discharge, g is the acceleration due to gravity, θ is the angle of the notch, B is the breadth of the notch, and H is the head over the notch.</p>
+
+        <h2>Procedure</h2>
+        <ol>
+            <li>Set up the notch apparatus and ensure it is level.</li>
+            <li>Pour water into the tank and allow it to flow through the notch.</li>
+            <li>Measure the head (H) over the notch using the gauge.</li>
+            <li>Record the time taken to fill a known volume in the measuring tank using a stopwatch.</li>
+            <li>Calculate the actual discharge (Q<sub>actual</sub>) from the measured values.</li>
+            <li>Use the formulas to calculate the theoretical discharge for both V-notch and rectangular notch.</li>
+            <li>Determine the coefficient of discharge (C<sub>d</sub>) using the formula:</li>
+            <p>C<sub>d</sub> = Q<sub>actual</sub> / Q<sub>theoretical</sub></p>
+        </ol>
+
+        <h2>Observations</h2>
+        <table border="1" width="100%" style="text-align: center;">
+            <thead>
+                <tr>
+                    <th>Notch Type</th>
+                    <th>Head (H)</th>
+                    <th>Theoretical Discharge (Q<sub>theoretical</sub>)</th>
+                    <th>Actual Discharge (Q<sub>actual</sub>)</th>
+                    <th>Coefficient of Discharge (C<sub>d</sub>)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>V-Notch</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <td>Rectangular Notch</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Results</h2>
+        <p>The discharge coefficients for the V-notch and rectangular notch were determined as per the recorded observations.</p>
+
+        <h2>Precautions</h2>
+        <ul>
+            <li>Ensure the notch apparatus is properly leveled.</li>
+            <li>Take accurate readings of the head over the notch.</li>
+            <li>Avoid splashing or turbulence during the experiment.</li>
+            <li>Repeat the readings multiple times for accuracy.</li>
+        </ul>
+
+        <div>
+            <label for="theta">Angle for V-Notch (θ in degrees):</label>
+            <input type="number" id="theta" placeholder="e.g., 60">
+
+            <label for="breadth">Breadth for Rectangular Notch (B in m):</label>
+            <input type="number" id="breadth" placeholder="e.g., 0.3">
+
+            <label for="head">Head Over the Notch (H in m):</label>
+            <input type="number" id="head" placeholder="e.g., 0.1">
+
+            <label for="actual-discharge">Actual Discharge (m³/s):</label>
+            <input type="number" id="actual-discharge" placeholder="e.g., 0.002">
+
+            <button class="btn" onclick="calculateDischarge()">Calculate & Simulate</button>
+        </div>
+
+        <div class="results" id="results">
+            <h2>Results</h2>
+            <p id="v-notch-discharge">V-Notch Theoretical Discharge: N/A</p>
+            <p id="rect-notch-discharge">Rectangular Notch Theoretical Discharge: N/A</p>
+            <p id="coeff-discharge">Coefficient of Discharge: N/A</p>
+        </div>
+
+        <canvas id="simulationCanvas" width="800" height="400"></canvas>
+
+    </div>
+
+    <footer>
+        <div class="footer-text">
+            <p>© 2024 Dr. B R Ambedkar National Institute of Technology Jalandhar. All rights reserved.</p>
+        <p>
+            <span style="font-size: 13px;">Contributors: Rohit Bansal, Nikita Khushwaha</span>
+        </p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateDischarge() {
+            const g = 9.81; // Acceleration due to gravity in m/s²
+            const theta = parseFloat(document.getElementById("theta").value);
+            const breadth = parseFloat(document.getElementById("breadth").value);
+            const head = parseFloat(document.getElementById("head").value);
+            const actualDischarge = parseFloat(document.getElementById("actual-discharge").value);
+
+            if (isNaN(theta) || isNaN(breadth) || isNaN(head) || isNaN(actualDischarge)) {
+                alert("Please enter valid inputs.");
+                return;
+            }
+
+            // Convert theta to radians
+            const thetaRad = (theta * Math.PI) / 180;
+
+            // Calculate theoretical discharge for V-Notch
+            const vNotchTheoretical = (8 / 15) * Math.sqrt(2 * g) * Math.tan(thetaRad / 2) * Math.pow(head, 2.5);
+
+            // Calculate theoretical discharge for Rectangular Notch
+            const rectNotchTheoretical = (2 / 3) * Math.sqrt(2 * g) * breadth * Math.pow(head, 1.5);
+
+            // Calculate coefficient of discharge for both notches
+            const coeffDischargeV = actualDischarge / vNotchTheoretical;
+            const coeffDischargeR = actualDischarge / rectNotchTheoretical;
+
+            // Update results in the DOM
+            document.getElementById("v-notch-discharge").innerText = `V-Notch Theoretical Discharge: ${vNotchTheoretical.toFixed(5)} m³/s`;
+            document.getElementById("rect-notch-discharge").innerText = `Rectangular Notch Theoretical Discharge: ${rectNotchTheoretical.toFixed(5)} m³/s`;
+            document.getElementById("coeff-discharge").innerText = `V-Notch Coefficient of Discharge: ${coeffDischargeV.toFixed(5)} | Rectangular Notch Coefficient of Discharge: ${coeffDischargeR.toFixed(5)}`;
+
+            // Start simulation
+            startSimulation(head, vNotchTheoretical, rectNotchTheoretical);
+        }
+
+        function startSimulation(head, vNotchDischarge, rectNotchDischarge) {
+            const canvas = document.getElementById("simulationCanvas");
+            const ctx = canvas.getContext("2d");
+
+            let waterLevel = canvas.height - head * 500; // Scale height dynamically based on head
+            let flowRateV = vNotchDischarge * 1000; // Scale flow rate for simulation
+            let flowRateR = rectNotchDischarge * 1000;
+
+            function drawSimulation() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw water behind notches (unfilled space)
+                ctx.fillStyle = "lightblue"; // Light color for unfilled space
+                ctx.fillRect(0, waterLevel, 800, canvas.height - waterLevel);
+
+                // Draw V-Notch (filled with water)
+                ctx.beginPath();
+                ctx.moveTo(200, canvas.height);
+                ctx.lineTo(250, waterLevel);
+                ctx.lineTo(150, waterLevel);
+                ctx.closePath();
+                ctx.fillStyle = "darkblue"; // Darker blue for filled water
+                ctx.fill();
+
+                // Draw Rectangular Notch (filled with water)
+                ctx.fillStyle = "darkblue"; // Darker blue for filled water
+                ctx.fillRect(500, waterLevel - 50, 100, 50);
+
+                // Draw water flowing out (blue)
+                ctx.fillStyle = "blue";
+                ctx.fillRect(150, canvas.height - flowRateV, 100, 10);
+                ctx.fillRect(500, canvas.height - flowRateR, 100, 10);
+
+                // Draw labels
+                ctx.fillStyle = "black";
+                ctx.fillText("V-Notch", 200, canvas.height - 10);
+                ctx.fillText("Rectangular Notch", 520, canvas.height - 10);
+            }
+
+            drawSimulation();
+        }
+    </script>
+</body>
+</html>

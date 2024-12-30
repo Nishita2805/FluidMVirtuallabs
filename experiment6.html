@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friction Factor and Reynolds Number</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #008000;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        header h1, header h2 {
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            background-color: #333;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+
+        nav button {
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+        }
+
+        nav button:hover {
+            background-color: #575757;
+        }
+
+        .container {
+            flex: 1;
+            background: white;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        h2 {
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        input[type="number"] {
+            width: 80%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button.add-row {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.add-row:hover {
+            background-color: #218838;
+        }
+
+        canvas {
+            display: block;
+            margin: 30px auto;
+            max-width: 800px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f7f7f7;
+        }
+
+        footer {
+            background-color: #008000;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fluid Mechanics Virtual Lab</h1>
+        <h2 style="color:white;">Dr. B R Ambedkar National Institute of Technology Jalandhar</h2>
+    </header>
+
+    <nav>
+        <button onclick="location.href='index.html'">Home</button>
+        <button onclick="location.href='experiment7.html'">Next Experiment</button>
+    </nav>
+
+    <section id="aim" class="container">
+        <h2>Experiment 6: Coefficient of discharge of G.I pipe</h2>
+        <h2>Aim</h2>
+        <p>a) To calculate the Coefficient of discharge of G.I pipe by changing length and secondly changing velocity.</p>
+        <p>b) To calculate the friction factor and Reynolds number for a given fluid flow setup and plot a graph between them.</p>
+    </section>
+
+    <section id="apparatus" class="container">
+        <h2>Apparatus</h2>
+        <ul>
+            <li>Fluid Flow Setup</li>
+            <li>Pressure Gauges</li>
+            <li>Flow Meter</li>
+            <li>Stopwatch</li>
+        </ul>
+    </section>
+
+    <section id="theory" class="container">
+        <h2>Theory</h2>
+        <p>The friction factor (f) is a dimensionless quantity used in fluid mechanics to describe the resistance to flow in a pipe due to friction. The Reynolds number (Re) is a dimensionless quantity that helps classify the flow regime as laminar, transitional, or turbulent. The friction factor is a dimensionless number that describes how resisted the flow of a fluid is inside a pipe or duct due to the internal surface roughness and flow velocity. It is crucial in fluid dynamics calculations and is often determined using the Moody chart for turbulent flow and the Darcy-Weisbach equation for pressure loss. Understanding the friction factor aids in designing efficient piping systems, minimizing energy loss, and predicting pressure drops.
+        </p>
+        <img src="6.png" alt="friction factor Diagram" width="600px">
+    </section>
+
+    <section id="procedure" class="container">
+        <h2>Procedure</h2>
+        <ol>
+            <li>Set up the apparatus and ensure all components are properly connected.</li>
+            <li>Measure the height differences (h1 and h2), pressures (P1 and P2), and pipe dimensions (L and d).</li>
+            <li>Record the time taken for a known volume of fluid to flow through the setup.</li>
+            <li>Input the measured values into the simulation table.</li>
+            <li>Analyze the results to calculate the friction factor and Reynolds number.</li>
+        </ol>
+    </section>
+
+    <div class="container">
+        <div class="input-section">
+            <label for="pipe-diameter">Pipe Diameter (m):</label>
+            <input type="number" id="pipe-diameter" placeholder="e.g., 0.05">
+            <br>
+            <label for="pipe-length">Pipe Length (m):</label>
+            <input type="number" id="pipe-length" placeholder="e.g., 10">
+            <br>
+            <label for="velocity">Velocity (m/s):</label>
+            <input type="number" id="velocity" placeholder="e.g., 1.5">
+            <br>
+            <label for="head-loss">Head Loss (m):</label>
+            <input type="number" id="head-loss" placeholder="e.g., 0.3">
+
+            <button class="btn" onclick="calculateFriction()">Calculate & Simulate</button>
+        </div>
+
+        <div class="results" id="results">
+            <h2>Results</h2>
+            <p id="friction-coefficient">Friction Coefficient: N/A</p>
+            <p id="pressure-loss">Pressure Loss: N/A</p>
+        </div>
+
+        <canvas id="plotCanvas" width="800" height="400"></canvas>
+
+        <div class="simulation">
+            <h2>Simulation</h2>
+            <canvas id="simulationCanvas" width="800" height="300"></canvas>
+        </div>
+    </div>
+
+    <section id="results" class="container">
+        <h2>Results</h2>
+        <p>The graph plots the relationship between the friction factor (f) and Reynolds number (Re) based on the data entered in the simulation table.</p>
+    </section>
+
+    <section id="precautions" class="container">
+        <h2>Precautions</h2>
+        <ul>
+            <li>Ensure all measurements are accurate and instruments are calibrated.</li>
+            <li>Handle the apparatus carefully to avoid leaks or damage.</li>
+            <li>Record data systematically to avoid errors in calculations.</li>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Dr. B R Ambedkar National Institute of Technology Jalandhar</p>
+        <p>
+            <span style="font-size: 13px;">Contributors: Raushan Raj, Madhav Kumar</span>
+        </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function calculateFriction() {
+            const g = 9.81; // Acceleration due to gravity in m/s²
+            const density = 1000; // Density of water in kg/m³
+            const diameter = parseFloat(document.getElementById("pipe-diameter").value);
+            const length = parseFloat(document.getElementById("pipe-length").value);
+            const velocity = parseFloat(document.getElementById("velocity").value);
+            const headLoss = parseFloat(document.getElementById("head-loss").value);
+
+            if (isNaN(diameter) || isNaN(length) || isNaN(velocity) || isNaN(headLoss)) {
+                alert("Please enter valid inputs for all fields.");
+                return;
+            }
+
+            // Calculate friction factor using the formula f = (2g * d * h_f) / (L * v^2)
+            const frictionFactor = (2 * g * diameter * headLoss) / (length * Math.pow(velocity, 2));
+
+            // Calculate pressure loss using h_f and density
+            const pressureLoss = density * g * headLoss;
+
+            // Display results
+            document.getElementById("friction-coefficient").innerText = `Friction Coefficient: ${frictionFactor.toFixed(5)}`;
+            document.getElementById("pressure-loss").innerText = `Pressure Loss: ${pressureLoss.toFixed(2)} Pa`;
+
+            // Plot the graph
+            plotGraph(velocity, pressureLoss);
+
+            // Start simulation
+            startSimulation(velocity);
+        }
+
+        function plotGraph(flowRate, pressureLoss) {
+            const canvas = document.getElementById("plotCanvas");
+            const ctx = canvas.getContext("2d");
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw axes
+            ctx.beginPath();
+            ctx.moveTo(50, 350);
+            ctx.lineTo(750, 350); // X-axis
+            ctx.lineTo(50, 50);  // Y-axis
+            ctx.stroke();
+
+            // Labels
+            ctx.font = "14px Arial";
+            ctx.fillText("Flow Rate (m/s)", 400, 380);
+            ctx.fillText("Pressure Loss (Pa)", 10, 30);
+
+            // Plot the point
+            const x = 50 + (flowRate * 100); // Scale flow rate
+            const y = 350 - (pressureLoss / 10); // Scale pressure loss
+
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = "red";
+            ctx.fill();
+
+            // Annotate the point
+            ctx.fillStyle = "black";
+            ctx.fillText(`(${flowRate.toFixed(2)}, ${pressureLoss.toFixed(2)})`, x + 10, y - 10);
+        }
+
+        function startSimulation(velocity) {
+            const canvas = document.getElementById("simulationCanvas");
+            const ctx = canvas.getContext("2d");
+
+            let waterX = 50;
+            const pipeY = 120;
+            const pipeWidth = 700;
+            const pipeHeight = 60;
+
+            function drawPipe() {
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw pipe
+                ctx.fillStyle = "#cccccc";
+                ctx.fillRect(50, pipeY, pipeWidth, pipeHeight);
+
+                // Draw water
+                ctx.fillStyle = "blue";
+                ctx.fillRect(waterX, pipeY + 10, 40, pipeHeight - 20);
+
+                // Draw pressure indicators
+                ctx.font = "14px Arial";
+                ctx.fillStyle = "black";
+                ctx.fillText("High Pressure", 60, pipeY - 10);
+                ctx.fillText("Low Pressure", 700, pipeY - 10);
+            }
+
+            function animateWater() {
+                if (waterX < pipeWidth) {
+                    waterX += velocity / 10; // Adjust speed based on velocity
+                    drawPipe();
+                    requestAnimationFrame(animateWater);
+                }
+            }
+
+            drawPipe();
+            animateWater();
+        }
+    </script>
+</body>
+</html>

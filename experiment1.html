@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metacentric Height Experiment</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header, footer {
+            background-color: #008000;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            width: 100%;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 1em;
+        }
+
+        .toggle-buttons {
+            display: flex;
+            justify-content: flex-start; /* Align the buttons to the left */
+            margin: 0; /* Remove margins to let the background span fully */
+            padding: 20px; /* Add padding for spacing */
+            background-color: #333; /* Added background color to extend across the width */
+            color: white; /* Ensure text remains visible */
+            width: 100%; 
+        }
+
+        .toggle-buttons button {
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .experiment-title {
+            text-align: left; /* Changed to align to the left */
+            font-size: 1.0em;
+            margin-top: 20px;
+            background-color: white; /* Added white background to the Experiment title section */
+            padding: 10px; /* Added padding for better spacing */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional for a clean look */
+            border-radius: 5px; 
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            background-color: white; /* Added white background to the main content */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Optional for a clean look */
+        }
+
+        #controls {
+            max-width: 300px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #controls .form-group {
+            margin-bottom: 15px;
+        }
+
+        #controls label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #controls input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #simulation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 600px;
+            margin-top: 20px;
+        }
+
+        #simulation canvas {
+            border: 1px solid #ccc;
+            background-color: white;
+            width: 100%;
+            height: 400px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            color: #333;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .footer-content p {
+            margin: 0;
+        }
+
+
+        footer {
+            background-color: #008000;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed; /* Fix the footer at the bottom */
+            bottom: 0; /* Make sure it's at the bottom */
+            width: 100%; /* Make sure it spans the full width */
+            z-index: 10; /* Keep footer above the content */
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fluid Mechanics Virtual Lab</h1>
+        <h2>Dr. B R Ambedkar National Institute of Technology Jalandhar</h2>
+    </header>
+
+    <div class="toggle-buttons">
+        <button onclick="location.href='index.html'">Home</button>
+        <button onclick="location.href='experiment2.html'">Next Experiment</button>
+    </div>
+
+    <div class="experiment-title">
+        <h2>Experiment 1: Metacentric Height Experiment</h2>
+    </div>
+
+    <main>
+        <!-- Aim, Apparatus, Theory, etc. -->
+        <section class="section">
+            <h2>Aim</h2>
+            <p>To determine the metacentric height of a floating body and verify the stability of a ship using the concept of metacentric height.</p>
+        </section>
+
+        <section class="section">
+            <h2>Apparatus Required</h2>
+            <ul>
+                <li>Body with known dimensions</li>
+                <li>Small part to be placed on the body</li>
+                <li>Measuring scale</li>
+                <li>Protractor</li>
+                <li>Weights</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Theory</h2>
+            <p>The metacentric height (GM) is a measure of the initial stability of a floating body. It is the distance between the center of gravity (G) and the metacenter (M). A larger metacentric height implies better stability of the body. The simplified formula for calculating metacentric height is:</p>
+            <p><b>GM = (W2 * D) / (W1 * tan(θ))</b></p>
+            <p>Where:</p>
+            <ul>
+                <li>W1 = Weight of the body</li>
+                <li>W2 = Weight of the small part</li>
+                <li>D = Horizontal distance of the small part from the axis</li>
+                <li>θ = Angle formed when the body is tilted</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Procedure</h2>
+            <ul>
+                <li>Set the body on a stable platform.</li>
+                <li>Place the small part on the body at a known distance.</li>
+                <li>Gradually tilt the body and measure the angle using a protractor.</li>
+                <li>Measure the weight of the body and the small part.</li>
+                <li>Use the above formula to calculate the metacentric height.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Observation</h2>
+            <form id="controls">
+                <div class="form-group">
+                    <label for="weight1">1. Weight of the body:</label>
+                    <input type="number" id="weight1" oninput="updateSimulation()" /> kg
+                </div>
+                <div class="form-group">
+                    <label for="weight2">2. Weight of the small part kept on body:</label>
+                    <input type="number" id="weight2" oninput="updateSimulation()" /> kg
+                </div>
+                <div class="form-group">
+                    <label for="distance">3. Horizontal distance of small part from axis:</label>
+                    <input type="number" id="distance" oninput="updateSimulation()" /> cm
+                </div>
+                <div class="form-group">
+                    <label for="angle">4. Angle formed after body is tilted:</label>
+                    <input type="number" id="angle" oninput="updateSimulation()" /> degree
+                </div>
+            </form>
+        <section class="section">
+            <h2>Result</h2>
+            <p>The Metacentric height is: <span id="result">N/A</span> cm</p>
+        </section>
+        </section>
+           
+
+        <section id="simulation">
+            <canvas id="simulationCanvas"></canvas>
+        </section>
+
+       
+
+        <section class="section">
+            <h2>Precautions</h2>
+            <ul>
+                <li>Ensure accurate measurement of the weight and distance.</li>
+                <li>Use a stable platform for the experiment to avoid disturbances.</li>
+                <li>Ensure the angle measurement is precise to get accurate results.</li>
+            </ul>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </section>
+
+    </main>
+
+
+    <footer>
+        <div class="footer-text">
+            <p>&copy; 2024 Dr. B R Ambedkar National Institute of Technology Jalandhar. All rights reserved.</p>
+        <p>
+            <span style="font-size: 13px;">Contributors: Rohit Bansal, Pushkar Chugh, Rajat Kumar, Money Goyal</span>
+        </p>
+
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const weight1Input = document.getElementById("weight1");
+            const weight2Input = document.getElementById("weight2");
+            const distanceInput = document.getElementById("distance");
+            const angleInput = document.getElementById("angle");
+            const resultDisplay = document.getElementById("result");
+
+            const canvas = document.getElementById("simulationCanvas");
+            const context = canvas.getContext("2d");
+            canvas.width = 600;
+            canvas.height = 400;
+
+            function updateSimulation() {
+                const weight1 = parseFloat(weight1Input.value) || 0;
+                const weight2 = parseFloat(weight2Input.value) || 0;
+                const distance = parseFloat(distanceInput.value) || 0;
+                const angle = parseFloat(angleInput.value) || 0;
+
+                if (isNaN(weight1) || isNaN(weight2) || isNaN(distance) || isNaN(angle)) {
+                    resultDisplay.textContent = "N/A";
+                    return;
+                }
+
+                // Calculate the metacentric height (simplified formula for demonstration)
+                const metacentricHeight = (weight2 * distance) / (weight1 * Math.tan(angle * Math.PI / 180));
+                resultDisplay.textContent = metacentricHeight.toFixed(2);
+
+                // Clear canvas
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw water line
+                context.fillStyle = "#87CEEB";
+                context.fillRect(0, canvas.height / 2 + 50, canvas.width, canvas.height / 2 - 50);
+
+                // Draw the body
+                context.save();
+                context.translate(canvas.width / 2, canvas.height / 2);
+                context.rotate(angle * Math.PI / 180);
+                context.fillStyle = "yellow";
+                context.fillRect(-50, -100, 100, 200);
+                context.strokeStyle = "black";
+                context.strokeRect(-50, -100, 100, 200);
+                context.restore();
+
+                // Draw the small part
+                context.fillStyle = "orange";
+                const partX = canvas.width / 2 + distance * Math.cos(angle * Math.PI / 180);
+                const partY = canvas.height / 2 + distance * Math.sin(angle * Math.PI / 180) - 100;
+                context.fillRect(partX - 10, partY - 10, 20, 20);
+                context.strokeRect(partX - 10, partY - 10, 20, 20);
+
+                // Draw G and B points
+                context.fillStyle = "red";
+                context.beginPath();
+                context.arc(canvas.width / 2, canvas.height / 2, 5, 0, 2 * Math.PI);
+                context.fill();
+                context.fillText("G", canvas.width / 2 + 10, canvas.height / 2 + 5);
+
+                context.fillStyle = "blue";
+                context.beginPath();
+                context.arc(canvas.width / 2, canvas.height / 2 + 50, 5, 0, 2 * Math.PI);
+                context.fill();
+                context.fillText("B", canvas.width / 2 + 10, canvas.height / 2 + 55);
+
+                // Draw metacenter
+                context.fillStyle = "red";
+                const metacenterY = canvas.height / 2 - metacentricHeight * 10; // Scale for visibility
+                context.beginPath();
+                context.arc(canvas.width / 2, metacenterY, 5, 0, 2 * Math.PI);
+                context.fill();
+                context.fillText("M", canvas.width / 2 + 10, metacenterY + 5);
+
+                // Draw line from part to metacenter
+                context.strokeStyle = "black";
+                context.beginPath();
+                context.moveTo(partX, partY);
+                context.lineTo(canvas.width / 2, metacenterY);
+                context.stroke();
+            }
+
+            window.updateSimulation = updateSimulation;
+            updateSimulation();
+        });
+    </script>
+</body>
+</html>

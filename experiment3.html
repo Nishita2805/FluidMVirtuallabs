@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venturi Meter Experiment</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            color: #333;
+        }
+        header {
+            background-color: #008000;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        header h1, header h2 {
+            margin: 0;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        main {
+            margin-top: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        footer {
+            background-color: #008000; /* Same as header (green) */
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 30px;
+            position: fixed; /* Fixing footer to the bottom */
+            width: 100%;
+            bottom: 0;
+        }
+        footer p {
+            margin: 0;
+        }
+
+        .toggle-buttons {
+            background-color: white;
+            overflow: hidden;
+            text-align: left; /* Added to shift buttons to the right */
+        }
+
+        .toggle-buttons button {
+            float: left; /* This keeps the button layout, but we aligned them to the right */
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;        
+        }
+
+        .toggle-buttons button:hover {
+             background-color: white;
+             color: black;
+        }
+        .formula {
+            font-style: italic;
+            font-size: 1.2em;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .diagram {
+            max-width: 80%;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        .diagram img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .diagram figcaption {
+            margin-top: 5px;
+            font-style: italic;
+            font-size: smaller;
+            color: #777;
+        }
+        .input-form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+        .input-form input, .input-form button {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        // Function to calculate and simulate the results for Venturi meter experiment
+        function calculateResult() {
+            // Retrieve input values
+            const p1 = parseFloat(document.getElementById('p1').value);
+            const V1 = parseFloat(document.getElementById('V1').value);
+            const Z1 = parseFloat(document.getElementById('Z1').value);
+            const p2 = parseFloat(document.getElementById('p2').value);
+            const V2 = parseFloat(document.getElementById('V2').value);
+            const Z2 = parseFloat(document.getElementById('Z2').value);
+            const w = parseFloat(document.getElementById('w').value);
+
+            if (isNaN(p1) || isNaN(V1) || isNaN(Z1) || isNaN(p2) || isNaN(V2) || isNaN(Z2) || isNaN(w)) {
+                alert('Please fill all the fields with valid numbers.');
+                return;
+            }
+
+            // Calculate total head for both points using Bernoulli's equation
+            const head1 = (p1 / w) + (V1 * V1) / (2 * 9.81) + Z1;
+            const head2 = (p2 / w) + (V2 * V2) / (2 * 9.81) + Z2;
+
+            // Create a new row in the observation table
+            const table = document.getElementById('observationTable');
+            const newRow = table.insertRow(-1);
+
+            // Add cells to the new row
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+
+            // Populate the cells with data
+            cell1.textContent = head1.toFixed(2);
+            cell2.textContent = head2.toFixed(2);
+            cell3.textContent = (head1 - head2).toFixed(2);
+            cell4.textContent = head1.toFixed(2) === head2.toFixed(2) ? 'Verified' : 'Not Verified';
+
+            // Simulate results (this is just for demonstration)
+            const velocityDifference = V1 - V2;
+            const pressureDifference = p1 - p2;
+
+            // Displaying simulation results in the console (could be expanded as needed)
+            console.log('Simulation Results:');
+            console.log('Velocity Difference: ', velocityDifference);
+            console.log('Pressure Difference: ', pressureDifference);
+
+            // You can also show this on the webpage if needed
+            document.getElementById('simulationResults').innerHTML = `
+                <h3>Simulation Results</h3>
+                <p>Velocity Difference: ${velocityDifference.toFixed(2)} m/s</p>
+                <p>Pressure Difference: ${pressureDifference.toFixed(2)} N/m<sup>2</sup></p>
+            `;
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Fluid Mechanics Virtual Lab</h1>
+        <h2>Dr. B R Ambedkar National Institute of Technology Jalandhar</h2>
+    </header>
+
+    <!-- Navigation Section -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="experiment4.html">Next Experiment</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Section -->
+    <main>
+        <section>
+            <h2>Experiment3: Venturi Meter Experiment</h2>
+            
+            <h3>Aim</h3>
+            <p>To determine the coefficient of discharge of a Venturi meter experimentally and to study the relationship between the pressure difference and the velocity of fluid flowing through the Venturi meter.</p>
+
+            <h3>Apparatus Required</h3>
+            <ul>
+                <li>Venturi meter</li>
+                <li>Manometer</li>
+                <li>Measuring tank</li>
+                <li>Stopwatch</li>
+                <li>Flow control valve</li>
+            </ul>
+
+            <h3>Theory</h3>
+            <p>The Venturi meter is a device used to measure the flow rate of a fluid through a pipe. It works on the principle of Bernoulli’s equation, which is based on the conservation of energy in fluid flow. The equation relates the pressure, velocity, and elevation at two points along the flow path. The Venturi meter consists of a pipe that narrows at a section called the throat. At this point, the velocity of the fluid increases, causing the pressure to decrease.</p>
+
+            <p>The fundamental principle behind the Venturi meter is Bernoulli's theorem, which states that the total mechanical energy (the sum of the pressure energy, kinetic energy, and potential energy) of the fluid is constant along a streamline in steady, incompressible flow. The equation for Bernoulli’s principle is given as:</p>
+            
+            <div class="formula">
+                <p>p1 / w + (V1^2 / 2g) + Z1 = p2 / w + (V2^2 / 2g) + Z2</p>
+                <p>Where:</p>
+                <ul>
+                    <li><b>p1, p2</b> = Pressure at points 1 and 2 (N/m<sup>2</sup>)</li>
+                    <li><b>V1, V2</b> = Velocity at points 1 and 2 (m/s)</li>
+                    <li><b>Z1, Z2</b> = Elevation at points 1 and 2 (m)</li>
+                    <li><b>w</b> = Specific weight of the fluid (N/m<sup>3</sup>)</li>
+                </ul>
+            </div>
+
+            <p>At the throat of the Venturi meter, the velocity of the fluid increases, and the pressure decreases. The difference in pressure between the wider section and the throat can be used to calculate the velocity of the fluid using the continuity equation and Bernoulli’s principle.</p>
+            <p>The flow rate can be calculated using the following relationship:</p>
+
+            <div class="formula">
+                <p>Q = A1V1 = A2V2</p>
+                <p>Where:</p>
+                <ul>
+                    <li><b>Q</b> = Flow rate (m<sup>3</sup>/s)</li>
+                    <li><b>A1, A2</b> = Cross-sectional area at points 1 and 2 (m<sup>2</sup>)</li>
+                    <li><b>V1, V2</b> = Velocity at points 1 and 2 (m/s)</li>
+                </ul>
+            </div>
+
+            <p>By measuring the pressure difference between the two points (1 and 2), and knowing the cross-sectional areas of the pipe at these points, the velocity and flow rate can be determined. The coefficient of discharge, which is the ratio of the actual flow rate to the theoretical flow rate, can also be determined experimentally.</p>
+
+            <div id="diagrams">
+                <h2>Diagrams:</h2>
+                <p>Here is a basic diagram illustrating an Venturi meter setup:</p>
+                <img src="3.png" alt="Venturi Meter Diagram" width="600px">
+            </div>
+
+
+            <h3>Procedure</h3>
+            <ol>
+                <li>Set up the Venturi meter with the required apparatus (manometer, measuring tank, etc.).</li>
+                <li>Ensure all connections are tight to avoid leaks.</li>
+                <li>Start the flow of water through the Venturi meter.</li>
+                <li>Record the pressure readings at points 1 and 2 using the manometer.</li>
+                <li>Measure the velocity of water at points 1 and 2.</li>
+                <li>Record the elevations at both points.</li>
+                <li>Perform multiple trials for accuracy and consistency.</li>
+                <li>Apply Bernoulli’s equation to calculate the theoretical results and compare with observed data.</li>
+            </ol>
+
+            <h3>Observations</h3>
+            <div class="input-form">
+                <label for="p1">Pressure at Point 1 (p1 in N/m<sup>2</sup>):</label>
+                <input type="number" id="p1" step="any">
+
+                <label for="V1">Velocity at Point 1 (V1 in m/s):</label>
+                <input type="number" id="V1" step="any">
+
+                <label for="Z1">Elevation at Point 1 (Z1 in m):</label>
+                <input type="number" id="Z1" step="any">
+
+                <label for="p2">Pressure at Point 2 (p2 in N/m<sup>2</sup>):</label>
+                <input type="number" id="p2" step="any">
+
+                <label for="V2">Velocity at Point 2 (V2 in m/s):</label>
+                <input type="number" id="V2" step="any">
+
+                <label for="Z2">Elevation at Point 2 (Z2 in m):</label>
+                <input type="number" id="Z2" step="any">
+
+                <label for="w">Specific Weight (w in N/m<sup>3</sup>):</label>
+                <input type="number" id="w" step="any">
+
+                <button type="button" onclick="calculateResult()">Calculate</button>
+            </div>
+
+            <table id="observationTable">
+                <thead>
+                    <tr>
+                        <th>Total Head at Point 1 (m)</th>
+                        <th>Total Head at Point 2 (m)</th>
+                        <th>Head Loss (m)</th>
+                        <th>Verification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be added dynamically here -->
+                </tbody>
+            </table>
+
+            <div id="simulationResults">
+                <!-- Simulation results will be displayed here -->
+            </div>
+        </section>
+
+        <h3>Results</h3>
+        <p>The Venturi meter experiment allows us to measure the velocity and pressure difference between two points in a flowing fluid. By comparing experimental results with theoretical calculations using Bernoulli’s equation, we can assess the accuracy and reliability of the meter's performance.</p>
+
+        <h3>Precautions</h3>
+        <ul>
+            <li>Ensure the Venturi meter is properly installed and free from leaks.</li>
+            <li>Check all measuring instruments for accuracy before starting the experiment.</li>
+            <li>Use clean water to avoid clogging or contamination of the flow system.</li>
+            <li>Ensure consistent water flow throughout the experiment to maintain accuracy.</li>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </ul>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Dr. B R Ambedkar National Institute of Technology Jalandhar. All rights reserved.</p>
+        <p>
+            <span style="font-size: 13px;">Contributors: Nishita Gaikwad, Mehak, Preet, Nikita Khushwaha, Ravneet Kaur</span>
+        </p>
+
+    </footer>
+
+</body>
+</html>

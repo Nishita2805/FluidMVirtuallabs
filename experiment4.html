@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orifice Meter Simulation</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        main {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .simulation-container {
+            padding: 20px;
+            background-color: white;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .output {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .animation-container {
+            position: relative;
+            width: 150px;
+            height: 300px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px auto;
+            background: linear-gradient(to bottom, #b3e5fc, #4fc3f7);
+        }
+
+        .water-flow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, #4fc3f7 20%, rgba(79, 195, 247, 0.2) 100%);
+            animation: flow-animation 2s linear infinite;
+        }
+
+        .orifice {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: #1e88e5;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes flow-animation {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fluid Mechanics Virtual Lab</h1>
+        <h2>Dr. B R Ambedkar National Institute of Technology Jalandhar</h2>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="#home" onclick="location.href='index.html'">Home</a>
+        <a href="#experiment5" onclick="location.href='experiment5.html'">Next Experiment</a>
+    </nav>
+
+    <main>
+        <div id="aim">
+            <h2>Experiment4: Orifice Meter Experiment</h2>
+            <h2>Aim:</h2>
+            <p>The aim of this experiment is to determine the discharge of water through an orifice meter by measuring the head difference and the orifice diameter.</p>
+        </div>
+        
+        <div id="requirements">
+            <h2>Requirements:</h2>
+            <ul>
+                <li>Orifice Meter Setup</li>
+                <li>Manometer</li>
+                <li>Stopwatch</li>
+                <li>Water Tank</li>
+                <li>Measuring Scale</li>
+                <li>Calculator</li>
+            </ul>
+        </div>
+        
+        <div id="theory">
+            <h2>Theory:</h2>
+            <p>The orifice meter is a device used to measure the flow rate of a fluid in a pipeline. It consists of a flat plate with a hole (the orifice), which creates a pressure difference when fluid flows through it. This pressure difference is related to the flow rate using Bernoulli's equation and the continuity equation.</p>
+            <ul>
+                <li><strong>Discharge Coefficient (Cd):</strong> Represents the efficiency of the orifice in converting potential energy to kinetic energy.</li>
+                <li><strong>Orifice Diameter (d):</strong> The size of the hole in the orifice plate.</li>
+                <li><strong>Head Difference (h):</strong> The difference in fluid pressure across the orifice plate.</li>
+            </ul>
+        </div>
+
+        <div id="procedure">
+            <h2>Procedure:</h2>
+            <ol>
+                <li>Set up the orifice meter and fill the tank with water.</li>
+                <li>Measure the head difference (h) across the orifice.</li>
+                <li>Select the orifice diameter (d) based on the available options.</li>
+                <li>Start the stopwatch and note the initial water level in the manometer.</li>
+                <li>Allow water to flow through the orifice and note the final water level after a set time.</li>
+                <li>Repeat for different orifice diameters and head differences as required.</li>
+            </ol>
+        </div>
+
+        <div id="diagrams">
+            <h2>Diagrams:</h2>
+            <p>Here is a basic diagram illustrating an orifice meter setup:</p>
+            <img src="orifice apparatus.jpg" alt="Orifice Meter Diagram" width="600px">
+        </div>
+        
+        <div class="simulation-container">
+            <form id="orificeForm">
+                <div class="form-group">
+                    <label for="Cd">Discharge Coefficient (Cd):</label>
+                    <input type="number" id="Cd" value="0.6" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="d">Select Orifice Diameter (m):</label>
+                    <select id="d">
+                        <option value="0.05">0.05</option>
+                        <option value="0.1">0.1</option>
+                        <option value="0.15">0.15</option>
+                        <option value="0.2">0.2</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="h">Head Difference (m):</label>
+                    <input type="number" id="h" value="1" step="0.01" required>
+                </div>
+                <button type="button" class="btn" onclick="simulateDischarge()">Calculate and Simulate</button>
+            </form>
+            <div class="output" id="output"></div>
+        </div>
+        
+        <div class="animation-container">
+            <div class="water-flow" id="waterFlow"></div>
+            <div class="orifice"></div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="dischargeChart"></canvas>
+        </div>
+
+        <div id="observation">
+            <h2>Observation Table:</h2>
+            <p><strong>For Discharge 1:</strong></p>
+            <table>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Initial level(h1 cm)</th>
+                    <th>Final level (h2 cm)</th>
+                    <th>h2-h1</th>
+                    <th>Time (t sec)</th>
+                    <th>Actual discharge</th>
+                </tr>
+                <tr>
+                    <td>Reading 1</td>
+                    <td>2.1</td>
+                    <td>11.6</td>
+                    <td>9.5</td>
+                    <td>15</td>
+                    <td>570</td>
+                </tr>
+                <tr>
+                    <td>Reading 2</td>
+                    <td>11.6</td>
+                    <td>24.5</td>
+                    <td>12.9</td>
+                    <td>20</td>
+                    <td>580.5</td>
+                </tr>
+            </table>
+            <p><strong>For Discharge 2:</strong></p>
+            <table>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Initial level(h1 cm)</th>
+                    <th>Final level (h2 cm)</th>
+                    <th>h2-h1</th>
+                    <th>Time (t sec)</th>
+                    <th>Actual discharge</th>
+                </tr>
+                <tr>
+                    <td>Reading 1</td>
+                    <td>2.8</td>
+                    <td>10.7</td>
+                    <td>7.9</td>
+                    <td>15</td>
+                    <td>474</td>
+                </tr>
+                <tr>
+                    <td>Reading 2</td>
+                    <td>10.7</td>
+                    <td>21.5</td>
+                    <td>10.8</td>
+                    <td>20</td>
+                    <td>486</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="result">
+            <h2>Result:</h2>
+            <p>The discharge through the orifice is calculated using the given formula and the results are verified based on the experimental data.</p>
+        </div>
+
+        <div id="precautions">
+            <h2>Precautions:</h2>
+            <ul>
+                <li>Ensure the orifice meter is installed correctly without leaks.</li>
+                <li>Calibrate the measuring instruments before starting the experiment.</li>
+                <li>Keep the manometer fluid level constant during measurements.</li>
+                <li>Ensure the time measurement is accurate to avoid errors.</li>
+                <li>Perform multiple readings for better accuracy and average the results.</li>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Dr. B R Ambedkar National Institute of Technology Jalandhar | All Rights Reserved</p>
+        <p>
+            <span style="font-size: 13px;">Contributors: Lata Gupta, Navinder, Moh.Aamin, Loveleen, Piyush Chitara</span>
+        </p>
+    </footer>
+
+    <script>
+        let chart;
+
+        function calculateOrificeDischarge(Cd, d, h) {
+            const g = 9.81; // Acceleration due to gravity in m/s^2
+            const A_orifice = Math.PI * Math.pow(d / 2, 2); // Cross-sectional area of the orifice (m^2)
+            const velocity = Math.sqrt(2 * g * h); // Velocity (m/s)
+            const Q = Cd * A_orifice * velocity; // Discharge (m^3/s)
+            return Q;
+        }
+
+        function updateChart(d, Q) {
+            if (!chart) {
+                const ctx = document.getElementById('dischargeChart').getContext('2d');
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [d],
+                        datasets: [{
+                            label: 'Discharge (m³/s)',
+                            data: [Q],
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Orifice Diameter (m)'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Discharge (m³/s)'
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                chart.data.labels.push(d);
+                chart.data.datasets[0].data.push(Q);
+                chart.update();
+            }
+        }
+
+        function simulateDischarge() {
+            const Cd = parseFloat(document.getElementById('Cd').value);
+            const d = parseFloat(document.getElementById('d').value);
+            const h = parseFloat(document.getElementById('h').value);
+
+            const Q = calculateOrificeDischarge(Cd, d, h);
+
+            document.getElementById('output').innerText = `Calculated Discharge: ${Q.toFixed(4)} m³/s`;
+
+            updateChart(d, Q);
+        }
+    </script>
+</body>
+</html>
